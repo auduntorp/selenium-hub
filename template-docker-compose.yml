@@ -1,0 +1,20 @@
+selenium-hub:
+    image: selenium/hub
+    net: host
+    environment:
+        SE_OPTS: "-host ${PUBLIC_IP} -hub=http://${PUBLIC_IP}:4444/grid/register"
+selenium-firefox-5555:
+    image: selenium/node-firefox
+    net: host
+    environment:
+        HUB_PORT_4444_TCP_ADDR: ${PUBLIC_IP}
+        HUB_PORT_4444_TCP_PORT: 4444
+        SE_OPTS: "-remoteHost=http://${PUBLIC_IP}:5555"
+selenium-chrome-5553:
+    build: selenium-chrome-custom-port
+    net: host
+    environment:
+        DISPLAY: ":98.0"
+        HUB_PORT_4444_TCP_ADDR: ${PUBLIC_IP}
+        HUB_PORT_4444_TCP_PORT: 4444
+        SE_OPTS: "-port 5553 -remoteHost=http://${PUBLIC_IP}:5553"
