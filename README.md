@@ -3,9 +3,7 @@ Combination of virtual machines, docker containers and local selenium-server to 
 # prerequisite
 Docker-machine with these tcp ports forwarded to local machine 5555, 4444, 5553
 ```
-./open-docker-port.sh tcp 4444
-./open-docker-port.sh tcp 5555
-./open-docker-port.sh tcp 5553
+./open-docker-ports.sh
 ```
 Safari installed with the Selenium driver located here:
 
