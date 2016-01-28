@@ -13,8 +13,10 @@ else
     INTERFACE=$1
 fi
 set -e
-PUBLIC_IP=$(ifconfig $INTERFACE | grep 'inet ' | awk '{print $2}')
-sed s/\$\{PUBLIC_IP\}/$PUBLIC_IP/g template-docker-compose.yml > docker-compose.yml
+#DOCKER_MACHINE_IP=$(ifconfig $INTERFACE | grep 'inet ' | awk '{print $2}')
+DOCKER_MACHINE_IP=$(docker-machine ip default)
+MY_IP=$(echo $DOCKER_MACHINE_IP | awk -F . '{print $1 "." $2 "." $3 ".1"}')
+sed s/\$\{PUBLIC_IP\}/$DOCKER_MACHINE_IP/g template-docker-compose.yml > docker-compose.yml
 
 stop() {
     docker-compose stop
@@ -26,5 +28,5 @@ docker-compose up -d
 
 mkdir -p Tools/selenium_conf
 make Tools/selenium_conf/selenium-server-standalone.jar
-java -jar Tools/selenium_conf/selenium-server-standalone.jar -hub http://${PUBLIC_IP}:4444/grid/register -role node -port 5560 -nodeConfig local-selenium-server-config/safari.json -remoteHost http://${PUBLIC_IP}:5560
+java -jar Tools/selenium_conf/selenium-server-standalone.jar -hub http://${DOCKER_MACHINE_IP}:4444/grid/register -role node -port 5560 -nodeConfig local-selenium-server-config/safari.json -remoteHost http://${MY_IP}:5560
 
