@@ -39,7 +39,7 @@ VMs/IE8\ -\ Win7.ova:
 
 
 Tools/selenium_conf/selenium-server-standalone.jar:
-	curl -o Tools/selenium_conf/selenium-server-standalone.jar -L http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
+	curl -o Tools/selenium_conf/selenium-server-standalone.jar -L http://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.0.jar
 
 Tools/deuac.iso:
 	curl -o Tools/deuac.iso -L https://github.com/tka/SeleniumBox/blob/master/deuac.iso?raw=true
