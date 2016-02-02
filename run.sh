@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
-if [ "$#" -ne "1" ]
-then
-    INTERFACE=en0
-elif [ "$1" == "--help" ]
+if [ "$1" == "--help" ]
 then
     echo "Start virtual machines serving selenium servers."
-    echo ""
-    echo "Mac users needs to give their public ip to the docker containers to be discoverable. This is picked from the interface. Default interface is en0"
-    echo "Usage: $(basename $0) [<interface>]"
+    echo "Usage: $(basename $0)"
     exit 1
-else
-    INTERFACE=$1
+fi
+if [ -z "$DOCKER_MACHINE_NAME" ]
+then
+    echo "DOCKER_MACHINE_NAME not set, using default"
+    DOCKER_MACHINE_NAME=default
 fi
 set -e
-#DOCKER_MACHINE_IP=$(ifconfig $INTERFACE | grep 'inet ' | awk '{print $2}')
-DOCKER_MACHINE_IP=$(docker-machine ip default)
+DOCKER_MACHINE_IP=$(docker-machine ip ${DOCKER_MACHINE_NAME})
 MY_IP=$(echo $DOCKER_MACHINE_IP | awk -F . '{print $1 "." $2 "." $3 ".1"}')
 sed s/\$\{PUBLIC_IP\}/$DOCKER_MACHINE_IP/g template-docker-compose.yml > docker-compose.yml
 
