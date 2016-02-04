@@ -11,5 +11,5 @@ http://selenium-release.storage.googleapis.com/2.48/SafariDriver.safariextz
 # usage
 This will start the selenium-hub and all the browsers.
 ```
-./run.sh [<interface-of-public-ip>]
+./build-and-start-all.sh
 ```
