@@ -6,7 +6,7 @@ then
     exit 1
 fi
 set -e
-cd $(basename $0)
+cd $(dirname $0)
 source expand-docker-compose-template.sh template-docker-compose.yml
 
 stop() {
