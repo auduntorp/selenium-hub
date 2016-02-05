@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if which docker-compose
+if which docker-machine
 then
     if [ -z "$DOCKER_MACHINE_NAME" ]
     then
